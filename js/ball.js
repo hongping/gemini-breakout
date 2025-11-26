@@ -4,7 +4,7 @@ export default class Ball {
         this.gameHeight = game.gameHeight;
         this.game = game;
         this.size = 10; // Radius
-        this.baseSpeed = 8;
+        this.baseSpeed = 5;
         this.maxBounceAngle = Math.PI / 3; // 60 degrees
 
         this.reset(1);

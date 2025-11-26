@@ -48,15 +48,21 @@ export default class Level {
 
     update() {
         // Check collision with ball
+        let hitBrick = false;
+
         this.bricks.forEach(brick => {
             if (!brick.markedForDeletion) {
                 if (this.game.ball.checkCollision({ position: { x: brick.x, y: brick.y }, width: brick.width, height: brick.height })) {
                     brick.markedForDeletion = true;
-                    this.game.ball.velocity.y = -this.game.ball.velocity.y; // Simple bounce
                     this.game.score += 10;
+                    hitBrick = true;
                 }
             }
         });
+
+        if (hitBrick) {
+            this.game.ball.velocity.y = -this.game.ball.velocity.y; // Simple bounce
+        }
 
         // Remove deleted bricks
         this.bricks = this.bricks.filter(brick => !brick.markedForDeletion);
