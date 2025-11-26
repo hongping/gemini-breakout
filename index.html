@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Breakout</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="game-container">
         <canvas id="gameCanvas"></canvas>
         <div id="ui-layer">
-            <div id="score-board">Score: <span id="score">0</span> | Level: <span id="level">1</span> | Lives: <span id="lives">3</span></div>
+            <div id="score-board">Score: <span id="score">0</span> | Level: <span id="level">1</span> | Lives: <span
+                    id="lives">3</span></div>
             <div id="start-screen" class="overlay">
                 <h1>BREAKOUT</h1>
                 <p>Tap or Click to Start</p>
@@ -18,6 +21,10 @@
             <div id="game-over-screen" class="overlay hidden">
                 <h1>GAME OVER</h1>
                 <p>Tap to Restart</p>
+            </div>
+            <div id="level-screen" class="overlay hidden">
+                <h1>LEVEL COMPLETE</h1>
+                <p>Tap to Continue</p>
             </div>
             <div id="victory-screen" class="overlay hidden">
                 <h1>YOU WIN!</h1>
@@ -27,4 +34,5 @@
     </div>
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

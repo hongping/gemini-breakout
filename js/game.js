@@ -9,7 +9,8 @@ const GAMESTATE = {
     MENU: 2,
     GAMEOVER: 3,
     NEWLEVEL: 4,
-    VICTORY: 5
+    VICTORY: 5,
+    LEVEL_TRANSITION: 6
 };
 
 export default class Game {
@@ -38,6 +39,7 @@ export default class Game {
         this.startScreen = document.getElementById('start-screen');
         this.gameOverScreen = document.getElementById('game-over-screen');
         this.victoryScreen = document.getElementById('victory-screen');
+        this.levelScreen = document.getElementById('level-screen');
 
         // Bind click to start
         this.startScreen.addEventListener('click', () => this.startGame());
@@ -48,6 +50,9 @@ export default class Game {
 
         this.victoryScreen.addEventListener('click', () => this.restartGame());
         this.victoryScreen.addEventListener('touchstart', () => this.restartGame());
+
+        this.levelScreen.addEventListener('click', () => this.startNextLevel());
+        this.levelScreen.addEventListener('touchstart', () => this.startNextLevel());
     }
 
     start() {
@@ -73,6 +78,7 @@ export default class Game {
 
         this.gameOverScreen.classList.add('hidden');
         this.victoryScreen.classList.add('hidden');
+        this.levelScreen.classList.add('hidden');
     }
 
     resetTurn() {
@@ -93,10 +99,17 @@ export default class Game {
             return;
         }
 
+        this.gamestate = GAMESTATE.LEVEL_TRANSITION;
+        this.levelScreen.classList.remove('hidden');
+    }
+
+    startNextLevel() {
         this.currentLevel++;
         this.ball.reset(this.currentLevel);
         this.paddle.reset();
         this.level = new Level(this, this.currentLevel);
+        this.gamestate = GAMESTATE.RUNNING;
+        this.levelScreen.classList.add('hidden');
     }
 
     loop(timestamp) {
@@ -113,7 +126,8 @@ export default class Game {
         if (this.gamestate === GAMESTATE.PAUSED ||
             this.gamestate === GAMESTATE.MENU ||
             this.gamestate === GAMESTATE.GAMEOVER ||
-            this.gamestate === GAMESTATE.VICTORY) return;
+            this.gamestate === GAMESTATE.VICTORY ||
+            this.gamestate === GAMESTATE.LEVEL_TRANSITION) return;
 
         this.input.update();
         this.paddle.update(dt);
